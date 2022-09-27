@@ -6,6 +6,9 @@ services:
     build:
       args:
         - target=dev #ビルドステージの指定
+    environment:
+      - TODO_ENV=dev
+      - PORT=8080
     volumes:
       - .:/app
     ports:
