@@ -3,15 +3,21 @@ package main
 import (
 	"context"
 	"fmt"
-	"net/http"
 	"log"
+	"net/http"
 
+	"github.com/mahiro72/todo-task-app/config"
 	"golang.org/x/sync/errgroup"
 )
 
 func run(ctx context.Context) error {
+	cfg, err := config.New()
+	if err != nil {
+		return err
+	}
+
 	s := &http.Server{
-		Addr: ":18080",
+		Addr: fmt.Sprintf(":%d",cfg.Port),
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w,"Hello, %s!",r.URL.Path[1:])
 		}),
